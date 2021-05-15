@@ -34,6 +34,8 @@ def trim(wisdom):
     wisdom = wisdom.replace(': —', ':')
     wisdom = wisdom.replace(': -', ':')
     wisdom = wisdom.replace(':,', ':')
+    wisdom = wisdom.replace(',:', ',')
+    wisdom = wisdom.replace('- —', '—')
     return wisdom
 
 def readcsv (file, row):
