@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from random import choice
-from pogovorki_functions import *
 import telebot
 from telebot import types
 import json
@@ -13,6 +12,29 @@ bot = telebot.TeleBot(TOKEN)
 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
 itembtn = types.KeyboardButton('Хочу еще мудрость')
 markup.add(itembtn)
+
+def trim(wisdom:str) -> str:
+    
+    """
+    Функция получает на вход строку и вычищает из нее весь возможный мусор, 
+    который может возникнуть при склейке двух частей пословиц.
+    
+    """
+    
+    wisdom = wisdom.replace(', а,', ', а')
+    wisdom = wisdom.replace(', да –', ', да ')
+    wisdom = wisdom.replace(', -', ' -')
+    wisdom = wisdom.replace(',-', ' -')
+    wisdom = wisdom.replace(',,', ',')
+    wisdom = wisdom.replace('?,', ',')
+    wisdom = wisdom.replace(', —', ' —')
+    wisdom = wisdom.replace(', –', ' -')
+    wisdom = wisdom.replace(': —', ':')
+    wisdom = wisdom.replace(': -', ':')
+    wisdom = wisdom.replace(':,', ':')
+    wisdom = wisdom.replace(',:', ',')
+    wisdom = wisdom.replace('- —', '—')
+    return wisdom
 
 # Читаем файл
 with open('pogovorki.json', encoding='utf-8') as read_data:
@@ -29,9 +51,9 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-    part1 = random.choice(random.choice(parsed_data)['part1'])
+    part1 = choice(choice(parsed_data)['part1'])
     print(part1)
-    part2 = random.choice(random.choice(parsed_data)['part2'])
+    part2 = choice(choice(parsed_data)['part2'])
     print(part2)
     wisdom = trim(part1 + part2)
     bot.send_message(message.chat.id,  wisdom, reply_markup=markup)
