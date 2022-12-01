@@ -22,7 +22,8 @@ def trim(wisdom:str) -> str:
     """
     
     wisdom = wisdom.replace(', а,', ', а')
-    wisdom = wisdom.replace(', да –', ', да ')
+    wisdom = wisdom.replace(', да –', ', да')
+    wisdom = wisdom.replace(', а —', ', а')
     wisdom = wisdom.replace(', -', ' -')
     wisdom = wisdom.replace(',-', ' -')
     wisdom = wisdom.replace(',,', ',')
@@ -30,10 +31,16 @@ def trim(wisdom:str) -> str:
     wisdom = wisdom.replace(', —', ' —')
     wisdom = wisdom.replace(', –', ' -')
     wisdom = wisdom.replace(': —', ':')
+    wisdom = wisdom.replace(': –', ':')
     wisdom = wisdom.replace(': -', ':')
     wisdom = wisdom.replace(':,', ':')
     wisdom = wisdom.replace(',:', ',')
     wisdom = wisdom.replace('- —', '—')
+    wisdom = wisdom.replace(' и и ', ' и ')
+    wisdom = wisdom.replace(', да,', ', да')
+    wisdom = wisdom.replace(', да —', ', да')
+    wisdom = wisdom.replace(', то —', ', то')
+    wisdom = wisdom.replace(' и, и ', ' и ')
     return wisdom
 
 # Читаем файл
